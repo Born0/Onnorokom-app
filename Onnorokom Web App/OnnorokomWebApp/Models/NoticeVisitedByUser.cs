@@ -14,7 +14,6 @@ namespace OnnorokomWebApp.Models
         [Required]
         public int NoticeId { get; set; }
 
-        public bool IsRead { get; set; }
 
         [ForeignKey("NoticeId")]
         public virtual Notice Notice { get; set; }

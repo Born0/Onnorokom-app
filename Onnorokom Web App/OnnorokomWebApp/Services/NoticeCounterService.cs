@@ -37,9 +37,16 @@ namespace OnnorokomWebApp.Services
 
         public async Task<int> GetNoticeReadCount(int noticeId)
         {
-            var data = _context.NoticesCounter.Where(x => x.NoticeId == noticeId).FirstOrDefault().Counter;
-
-            return data;
+            var data = _context.NoticesCounter.Where(x => x.NoticeId == noticeId).FirstOrDefault();
+           
+            if (data == null)
+                return 0;
+            else
+            {
+                int count = data.Counter;
+                return count;
+            }
+           
         }
 
     }

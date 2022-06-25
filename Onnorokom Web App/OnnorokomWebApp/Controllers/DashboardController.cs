@@ -13,11 +13,14 @@ namespace OnnorokomWebApp.Controllers
 {
     public class DashboardController : Controller
     {
+        #region Declaration
         private readonly OnnoRokomDbContext _context;
         public const string SessionKeyRole = "_Role";
         public const string SessionKeyId = "_Id";
         NoticeCounterService noticeCounterService;
         NoticeVisitedByUserService noticeVisitedByUserService;
+
+        #endregion Declaration
 
         public DashboardController(OnnoRokomDbContext context)
         {
@@ -29,11 +32,17 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-            ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+            int userId = Int32.Parse(cred[1]);    // setting ID 
+            string role = cred[0];
+
+
             var data = await _context.Notices.ToListAsync();
-            if (ViewBag.Role=="ADMIN")
+            if (data.Count > 0)              
             {
-                if (data.Count > 0)
+                if (ViewBag.Role == "ADMIN")        // Only for Admin
                 {
                     List<NoticeViewVM> list = new List<NoticeViewVM>();
                     foreach (var notice in data)
@@ -48,17 +57,30 @@ namespace OnnorokomWebApp.Controllers
                     }
                     return View("AdminIndex", list);
                 }
-                return View("AdminIndex", "NO DATA");
+                else
+                {
+                    var visitedList =await noticeVisitedByUserService.GetNoticeVisitedByUser(userId);   //getting Visited items
+                    data = (List<Notice>)data.Except(visitedList).ToList(); // removing visited item from full lsit
+                    data.AddRange(visitedList); // adding visited item at the end
+
+                    return View(data);
+                }
+                
             }
+            // for Users
             
-            return View(data);
+            return View("Index","No Data");
         }
 
         // GET: Dashboard/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
-            int userId = (int)HttpContext.Session.GetInt32(SessionKeyId);   ///need modification
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+            int userId = Int32.Parse(cred[1]);    // setting ID 
+            string role = cred[0];
+
             if (id == null)
             {
                 return NotFound();
@@ -69,16 +91,22 @@ namespace OnnorokomWebApp.Controllers
             {
                 return NotFound();
             }
-            var counterDetails= await noticeCounterService.NoticeReadCounted(notice.Id);
 
-           
-            var visitDetails = await noticeVisitedByUserService.NoticeVisitedByUser(notice.Id, userId);
+            if (role != "ADMIN") // Visit counter only for user
+            {
+                var counterDetails = await noticeCounterService.NoticeReadCounted(notice.Id);
+                var visitDetails = await noticeVisitedByUserService.NoticeVisitedByUser(notice.Id, userId);
+            }
 
             return View(notice);
         }
 
         public IActionResult Create()
         {
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             return View();
         }
 
@@ -87,6 +115,10 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Body")] Notice notice)
         {
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             if (ModelState.IsValid)
             {
                 _context.Add(notice);
@@ -99,6 +131,10 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             if (id == null )
             {
                 return NotFound();
@@ -117,6 +153,10 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Notice notice)
         {
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             if (id != notice.Id)
             {
                 return NotFound();
@@ -148,6 +188,10 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             if (id == null)
             {
                 return NotFound();
@@ -167,7 +211,10 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-           
+            var cred = Auth();
+            if (cred.Count == 0)
+                return RedirectToAction("Login", "Login");
+
             var notice = await _context.Notices.FindAsync(id);
             if (notice != null)
             {
@@ -181,6 +228,20 @@ namespace OnnorokomWebApp.Controllers
         private bool NoticeExists(int id)
         {
           return (_context.Notices?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private List<string> Auth()
+        {
+            try
+            {
+                ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
+                int userId = (int)HttpContext.Session.GetInt32(SessionKeyId);   ///
+                return new List<string> { ViewBag.Role, userId.ToString() };
+            }
+            catch (Exception ex)
+            {
+                return new List<string>();
+            }
         }
     }
 }

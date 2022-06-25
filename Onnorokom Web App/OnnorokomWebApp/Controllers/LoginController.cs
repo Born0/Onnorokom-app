@@ -50,6 +50,13 @@ namespace OnnorokomWebApp.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove(SessionKeyId);
+            HttpContext.Session.Remove(SessionKeyRole);
+            return RedirectToAction("Login");
+        }
+
       
     }
 }

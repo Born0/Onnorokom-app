@@ -1,4 +1,5 @@
-﻿using OnnorokomWebApp.Models;
+﻿using System.Linq;
+using OnnorokomWebApp.Models;
 
 namespace OnnorokomWebApp.Services
 {
@@ -17,12 +18,26 @@ namespace OnnorokomWebApp.Services
                 ogData=new NoticeVisitedByUser();
                 ogData.UserId = userId;
                 ogData.NoticeId = noticeId;
-                ogData.IsRead = true;
-                _context.Update(ogData);
+                _context.Add(ogData);
                 await _context.SaveChangesAsync();
-                return "Updated";
+                return "Added";
             }
             return "Already Read";
         }
+
+        public async Task<List<Notice>> GetNoticeVisitedByUser( int userId)
+        {
+            var data = _context.NoticesVisitedByUser.Where(x => x.UserId == userId).Select(x => x.NoticeId).ToList();
+
+           List<Notice> visitednotices= new List<Notice>();
+            foreach(var noticeId in data)
+            {
+                visitednotices.Add(_context.Notices.Where(x => x.Id == noticeId).FirstOrDefault());
+            }
+                                                                    
+            return visitednotices;
+        }
+
+
     }
 }
