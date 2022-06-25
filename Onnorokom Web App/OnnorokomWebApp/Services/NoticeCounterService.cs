@@ -1,4 +1,4 @@
-﻿using WebApplication1.Models;
+﻿using OnnorokomWebApp.Models;
 
 namespace OnnorokomWebApp.Services
 {
@@ -25,8 +25,22 @@ namespace OnnorokomWebApp.Services
                 _context.Add(noticeCounter);
                 await _context.SaveChangesAsync();
                 return "Added";
-            }
-            
+            }           
         }
+
+        public async Task<List<NoticeCounter>> NoticeReadCount()
+        {
+            var data= _context.NoticesCounter.ToList();
+
+            return  data;
+        }
+
+        public async Task<int> GetNoticeReadCount(int noticeId)
+        {
+            var data = _context.NoticesCounter.Where(x => x.NoticeId == noticeId).FirstOrDefault().Counter;
+
+            return data;
+        }
+
     }
 }

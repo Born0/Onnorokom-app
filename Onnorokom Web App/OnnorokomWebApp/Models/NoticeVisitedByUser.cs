@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication1.Models
+namespace OnnorokomWebApp.Models
 {
     public class NoticeVisitedByUser
     {
@@ -13,6 +13,8 @@ namespace WebApplication1.Models
 
         [Required]
         public int NoticeId { get; set; }
+
+        public bool IsRead { get; set; }
 
         [ForeignKey("NoticeId")]
         public virtual Notice Notice { get; set; }

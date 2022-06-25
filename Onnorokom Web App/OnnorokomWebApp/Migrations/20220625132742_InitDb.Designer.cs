@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication1.Models;
+using OnnorokomWebApp.Models;
 
 #nullable disable
 
@@ -23,7 +23,7 @@ namespace OnnorokomWebApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("WebApplication1.Models.Notice", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.Notice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace OnnorokomWebApp.Migrations
                     b.ToTable("Notices");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.NoticeCounter", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.NoticeCounter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace OnnorokomWebApp.Migrations
                     b.ToTable("NoticesCounter");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.NoticeVisitedByUser", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.NoticeVisitedByUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +87,7 @@ namespace OnnorokomWebApp.Migrations
                     b.ToTable("NoticesVisitedByUser");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.User", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace OnnorokomWebApp.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.View_Models.CredentialVM", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.View_Models.CredentialVM", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,9 +129,9 @@ namespace OnnorokomWebApp.Migrations
                     b.ToTable("CredentialVM");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.NoticeCounter", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.NoticeCounter", b =>
                 {
-                    b.HasOne("WebApplication1.Models.Notice", "Notice")
+                    b.HasOne("OnnorokomWebApp.Models.Notice", "Notice")
                         .WithMany()
                         .HasForeignKey("NoticeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -140,15 +140,15 @@ namespace OnnorokomWebApp.Migrations
                     b.Navigation("Notice");
                 });
 
-            modelBuilder.Entity("WebApplication1.Models.NoticeVisitedByUser", b =>
+            modelBuilder.Entity("OnnorokomWebApp.Models.NoticeVisitedByUser", b =>
                 {
-                    b.HasOne("WebApplication1.Models.Notice", "Notice")
+                    b.HasOne("OnnorokomWebApp.Models.Notice", "Notice")
                         .WithMany()
                         .HasForeignKey("NoticeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1.Models.User", "User")
+                    b.HasOne("OnnorokomWebApp.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

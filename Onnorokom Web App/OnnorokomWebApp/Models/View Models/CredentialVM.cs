@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Models.View_Models
+﻿namespace OnnorokomWebApp.Models.View_Models
 {
     public class CredentialVM
     {

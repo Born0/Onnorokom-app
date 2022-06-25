@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnnorokomWebApp.Models;
 
@@ -10,9 +11,10 @@ using OnnorokomWebApp.Models;
 namespace OnnorokomWebApp.Migrations
 {
     [DbContext(typeof(OnnoRokomDbContext))]
-    partial class OnnoRokomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220625150737_IsReadAddedToNoticeVisitedByUser")]
+    partial class IsReadAddedToNoticeVisitedByUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

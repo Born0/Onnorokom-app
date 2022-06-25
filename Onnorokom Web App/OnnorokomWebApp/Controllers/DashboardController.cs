@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnnorokomWebApp.Models;
+using OnnorokomWebApp.Models.View_Models;
 using OnnorokomWebApp.Services;
-using WebApplication1.Models;
 
 namespace OnnorokomWebApp.Controllers
 {
@@ -15,18 +16,41 @@ namespace OnnorokomWebApp.Controllers
         private readonly OnnoRokomDbContext _context;
         public const string SessionKeyRole = "_Role";
         public const string SessionKeyId = "_Id";
+        NoticeCounterService noticeCounterService;
+        NoticeVisitedByUserService noticeVisitedByUserService;
 
         public DashboardController(OnnoRokomDbContext context)
         {
             _context = context;
+            noticeCounterService = new NoticeCounterService(_context);
+            noticeVisitedByUserService = new NoticeVisitedByUserService(_context);
         }
 
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
             ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
-
             var data = await _context.Notices.ToListAsync();
+            if (ViewBag.Role=="ADMIN")
+            {
+                if (data.Count > 0)
+                {
+                    List<NoticeViewVM> list = new List<NoticeViewVM>();
+                    foreach (var notice in data)
+                    {
+                        list.Add(new NoticeViewVM()
+                        {
+                            Id = notice.Id,
+                            Title = notice.Title,
+                            Body = notice.Body,
+                            Count = await noticeCounterService.GetNoticeReadCount(notice.Id)
+                        });
+                    }
+                    return View("AdminIndex", list);
+                }
+                return View("AdminIndex", "NO DATA");
+            }
+            
             return View(data);
         }
 
@@ -34,6 +58,7 @@ namespace OnnorokomWebApp.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
+            int userId = (int)HttpContext.Session.GetInt32(SessionKeyId);   ///need modification
             if (id == null)
             {
                 return NotFound();
@@ -44,8 +69,11 @@ namespace OnnorokomWebApp.Controllers
             {
                 return NotFound();
             }
-            NoticeCounterService noticeCounterService = new NoticeCounterService(_context);
             var counterDetails= await noticeCounterService.NoticeReadCounted(notice.Id);
+
+           
+            var visitDetails = await noticeVisitedByUserService.NoticeVisitedByUser(notice.Id, userId);
+
             return View(notice);
         }
 

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
-using WebApplication1.Models.View_Models;
+using OnnorokomWebApp.Models;
+using OnnorokomWebApp.Models.View_Models;
 
 namespace OnnorokomWebApp.Controllers
 {

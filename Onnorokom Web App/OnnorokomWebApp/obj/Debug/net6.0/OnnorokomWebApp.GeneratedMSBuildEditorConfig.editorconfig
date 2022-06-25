@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Borno\Desktop\Onnorokom app\Onnorokom Web App\OnnorokomWebApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/AdminIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEFkbWluSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

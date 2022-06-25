@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Models;
+using OnnorokomWebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
