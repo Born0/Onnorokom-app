@@ -29,20 +29,20 @@ namespace OnnorokomWebApp.Controllers
             noticeVisitedByUserService = new NoticeVisitedByUserService(_context);
         }
 
-        // GET: Dashboard
         public async Task<IActionResult> Index()
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
             int userId = Int32.Parse(cred[1]);    // setting ID 
             string role = cred[0];
-
+            #endregion Auth
 
             var data = await _context.Notices.ToListAsync();
             if (data.Count > 0)              
             {
-                if (ViewBag.Role == "ADMIN")        // Only for Admin
+                if (role == "ADMIN")        // Only for Admin
                 {
                     List<NoticeViewVM> list = new List<NoticeViewVM>();
                     foreach (var notice in data)
@@ -60,26 +60,27 @@ namespace OnnorokomWebApp.Controllers
                 else
                 {
                     var visitedList =await noticeVisitedByUserService.GetNoticeVisitedByUser(userId);   //getting Visited items
+                    int unseen=data.Count-visitedList.Count;
                     data = (List<Notice>)data.Except(visitedList).ToList(); // removing visited item from full lsit
                     data.AddRange(visitedList); // adding visited item at the end
-
+                    ViewBag.UnseenCount=unseen;
                     return View(data);
                 }
                 
             }
-            // for Users
             
             return View("Index","No Data");
         }
 
-        // GET: Dashboard/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
             int userId = Int32.Parse(cred[1]);    // setting ID 
             string role = cred[0];
+            #endregion Auth
 
             if (id == null)
             {
@@ -103,10 +104,11 @@ namespace OnnorokomWebApp.Controllers
 
         public IActionResult Create()
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
-
+            #endregion Auth
             return View();
         }
 
@@ -115,10 +117,11 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Body")] Notice notice)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
-
+            #endregion Auth
             if (ModelState.IsValid)
             {
                 _context.Add(notice);
@@ -131,10 +134,11 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
-
+            #endregion Auth
             if (id == null )
             {
                 return NotFound();
@@ -153,9 +157,11 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Notice notice)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
+            #endregion Auth
 
             if (id != notice.Id)
             {
@@ -177,7 +183,7 @@ namespace OnnorokomWebApp.Controllers
                     }
                     else
                     {
-                        throw;
+                        return View(notice);
                     }
                 }
                 return RedirectToAction("Index");
@@ -185,12 +191,13 @@ namespace OnnorokomWebApp.Controllers
             return View(notice);
         }
 
-        // GET: Dashboard/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
+            #endregion Auth
 
             if (id == null)
             {
@@ -206,14 +213,15 @@ namespace OnnorokomWebApp.Controllers
             return View(notice);
         }
 
-        // POST: Dashboard/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            #region auth
             var cred = Auth();
             if (cred.Count == 0)
                 return RedirectToAction("Login", "Login");
+            #endregion Auth
 
             var notice = await _context.Notices.FindAsync(id);
             if (notice != null)
@@ -225,6 +233,7 @@ namespace OnnorokomWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        #region Custom_Methods
         private bool NoticeExists(int id)
         {
           return (_context.Notices?.Any(e => e.Id == id)).GetValueOrDefault();
@@ -243,5 +252,6 @@ namespace OnnorokomWebApp.Controllers
                 return new List<string>();
             }
         }
+        #endregion Custom_Methods
     }
 }
