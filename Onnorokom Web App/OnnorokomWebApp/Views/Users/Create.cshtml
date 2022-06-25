@@ -20,7 +20,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
+                <br />
+                @*<input asp-for="Role" class="form-control" />*@
+                
+                @Html.RadioButtonFor(m => m.Role,"ADMIN","ADMIN")
+                Admin
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.RadioButtonFor(m => m.Role,"USER","USER")
+                User
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
