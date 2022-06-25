@@ -16,9 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+           @* <th>
                 @Html.DisplayNameFor(model => model.Body)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -28,14 +28,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+           @* <td>
                 @Html.DisplayFor(modelItem => item.Body)
-            </td>
+            </td>*@
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+            @{
+                if(ViewBag.Role=="ADMIN")
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                   </td>
+                }
+            }
+            
         </tr>
 }
     </tbody>

@@ -12,6 +12,8 @@ namespace OnnorokomWebApp.Controllers
     public class DashboardController : Controller
     {
         private readonly OnnoRokomDbContext _context;
+        public const string SessionKeyRole = "_Role";
+        public const string SessionKeyId = "_Id";
 
         public DashboardController(OnnoRokomDbContext context)
         {
@@ -21,21 +23,22 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard
         public async Task<IActionResult> Index()
         {
-              return _context.Notices != null ? 
-                          View(await _context.Notices.ToListAsync()) :
-                          Problem("Entity set 'OnnoRokomDbContext.Notices'  is null.");
+            ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
+
+            var data = await _context.Notices.ToListAsync();
+            return View(data);
         }
 
         // GET: Dashboard/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Notices == null)
+            ViewBag.Role = HttpContext.Session.GetString(SessionKeyRole);
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var notice = await _context.Notices
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var notice = await _context.Notices.Where(m => m.Id == id).FirstOrDefaultAsync();
             if (notice == null)
             {
                 return NotFound();
@@ -44,15 +47,12 @@ namespace OnnorokomWebApp.Controllers
             return View(notice);
         }
 
-        // GET: Dashboard/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Dashboard/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Body")] Notice notice)
@@ -61,7 +61,7 @@ namespace OnnorokomWebApp.Controllers
             {
                 _context.Add(notice);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(notice);
         }
@@ -69,7 +69,7 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Notices == null)
+            if (id == null )
             {
                 return NotFound();
             }
@@ -82,12 +82,10 @@ namespace OnnorokomWebApp.Controllers
             return View(notice);
         }
 
-        // POST: Dashboard/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body")] Notice notice)
+        public async Task<IActionResult> Edit(int id, Notice notice)
         {
             if (id != notice.Id)
             {
@@ -112,7 +110,7 @@ namespace OnnorokomWebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(notice);
         }
@@ -120,13 +118,12 @@ namespace OnnorokomWebApp.Controllers
         // GET: Dashboard/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Notices == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var notice = await _context.Notices
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var notice = await _context.Notices.Where(m => m.Id == id).FirstOrDefaultAsync();
             if (notice == null)
             {
                 return NotFound();
@@ -140,10 +137,7 @@ namespace OnnorokomWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Notices == null)
-            {
-                return Problem("Entity set 'OnnoRokomDbContext.Notices'  is null.");
-            }
+           
             var notice = await _context.Notices.FindAsync(id);
             if (notice != null)
             {
@@ -151,7 +145,7 @@ namespace OnnorokomWebApp.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         private bool NoticeExists(int id)
