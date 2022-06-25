@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         public int Counter { get; set; }
 
         [ForeignKey("NoticeId")]
-        public Notice Notice { get; set; }
+        public virtual Notice Notice { get; set; }
 
     }
 }

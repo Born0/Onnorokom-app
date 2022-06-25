@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnnorokomWebApp.Services;
 using WebApplication1.Models;
 
 namespace OnnorokomWebApp.Controllers
@@ -43,7 +44,8 @@ namespace OnnorokomWebApp.Controllers
             {
                 return NotFound();
             }
-
+            NoticeCounterService noticeCounterService = new NoticeCounterService(_context);
+            var counterDetails= await noticeCounterService.NoticeReadCounted(notice.Id);
             return View(notice);
         }
 

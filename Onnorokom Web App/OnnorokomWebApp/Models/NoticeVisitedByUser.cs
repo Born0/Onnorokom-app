@@ -15,10 +15,10 @@ namespace WebApplication1.Models
         public int NoticeId { get; set; }
 
         [ForeignKey("NoticeId")]
-        public Notice Notice { get; set; }
+        public virtual Notice Notice { get; set; }
 
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
     }
 }
