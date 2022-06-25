@@ -15,12 +15,52 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Borno\Desktop\Onnorokom app\Onnorokom Web App\OnnorokomWebApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Login/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Login/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Login/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Login/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Borno/Desktop/Onnorokom app/Onnorokom Web App/OnnorokomWebApp/Views/Shared/Error.cshtml]
