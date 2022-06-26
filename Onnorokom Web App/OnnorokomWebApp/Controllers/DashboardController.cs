@@ -233,12 +233,13 @@ namespace OnnorokomWebApp.Controllers
             return RedirectToAction("Index");
         }
 
-        #region Custom_Methods
+       
         private bool NoticeExists(int id)
         {
           return (_context.Notices?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        #region Custom_Methods
         private List<string> Auth()
         {
             try

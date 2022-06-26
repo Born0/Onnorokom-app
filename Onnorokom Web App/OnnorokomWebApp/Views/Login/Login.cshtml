@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if(TempData.ContainsKey("Id"))
+    {
+        <h4> Your Id is @TempData["Id"].ToString()</h4>
+    }
+
 }
 
 <h1>Login</h1>
@@ -16,7 +22,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
+                <input asp-for="Id" class="form-control" placeholder=@ViewBag.NewId/>
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,7 +39,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Signup" asp-controller="Users">Sign up</a>
 </div>
 
 @section Scripts {
