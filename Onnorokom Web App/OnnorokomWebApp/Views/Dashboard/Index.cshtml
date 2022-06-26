@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.BG = "style=" + "background-color:#99ffcc";
 }
 
 <h1>Index</h1>
@@ -15,31 +16,25 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-           @* <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>*@
+          
             <th></th>
         </tr>
     </thead>
     <tbody>
-
+        @{int i=0;}
         @foreach (var item in Model)
         {
-
-            <tr>
-                <td>
+            if(i==ViewBag.UnseenCount){ ViewBag.BG = ""; }
+            <tr  >
+                <td @ViewBag.BG>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-               @* <td>
-                    @Html.DisplayFor(modelItem => item.Body)
-                </td>*@
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
 
                 </td>
             </tr>
-
-
+            i++;
         }
     </tbody>
 </table>
