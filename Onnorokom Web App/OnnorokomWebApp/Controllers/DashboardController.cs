@@ -68,8 +68,17 @@ namespace OnnorokomWebApp.Controllers
                 }
                 
             }
-            
-            return View("Index","No Data");
+
+            if (role == "ADMIN")
+            {
+                List<NoticeViewVM> list = new List<NoticeViewVM>();
+                return View("AdminIndex", list);
+            }
+            else
+            {
+                return View("Index", data);
+            }
+                
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -186,6 +195,10 @@ namespace OnnorokomWebApp.Controllers
                         return View(notice);
                     }
                 }
+                if (cred[0]=="ADMIN")
+                {
+                    return RedirectToAction("AdminIndex");
+                }
                 return RedirectToAction("Index");
             }
             return View(notice);
@@ -230,6 +243,10 @@ namespace OnnorokomWebApp.Controllers
             }
             
             await _context.SaveChangesAsync();
+            if (cred[0] == "ADMIN")
+            {
+                return RedirectToAction("AdminIndex");
+            }
             return RedirectToAction("Index");
         }
 
