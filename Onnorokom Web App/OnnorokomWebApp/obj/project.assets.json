@@ -9664,25 +9664,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Borno\\.nuget\\packages\\": {}
+    "C:\\Users\\ahmed\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Borno\\Desktop\\Onnorokom app\\Onnorokom Web App\\OnnorokomWebApp\\OnnorokomWebApp.csproj",
+      "projectUniqueName": "C:\\Users\\ahmed\\Desktop\\face\\Onnorokom-app\\Onnorokom Web App\\OnnorokomWebApp\\OnnorokomWebApp.csproj",
       "projectName": "OnnorokomWebApp",
-      "projectPath": "C:\\Users\\Borno\\Desktop\\Onnorokom app\\Onnorokom Web App\\OnnorokomWebApp\\OnnorokomWebApp.csproj",
-      "packagesPath": "C:\\Users\\Borno\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Borno\\Desktop\\Onnorokom app\\Onnorokom Web App\\OnnorokomWebApp\\obj\\",
+      "projectPath": "C:\\Users\\ahmed\\Desktop\\face\\Onnorokom-app\\Onnorokom Web App\\OnnorokomWebApp\\OnnorokomWebApp.csproj",
+      "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ahmed\\Desktop\\face\\Onnorokom-app\\Onnorokom Web App\\OnnorokomWebApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Borno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -9746,7 +9747,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
